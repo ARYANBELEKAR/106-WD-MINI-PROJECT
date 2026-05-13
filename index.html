@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Student Result Management System</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            background:white;
+            width:400px;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:20px;
+            color:#333;
+        }
+
+        label{
+            font-weight:bold;
+            margin-top:10px;
+            display:block;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+
+        .result{
+            margin-top:20px;
+            padding:15px;
+            background:#f4f4f4;
+            border-radius:10px;
+        }
+
+        .result p{
+            margin:10px 0;
+            font-size:18px;
+        }
+
+        .grade{
+            font-weight:bold;
+            color:green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Result System</h1>
+
+        <label>Student Name</label>
+        <input type="text" id="name" placeholder="Enter student name">
+
+        <label>Math Marks</label>
+        <input type="number" id="math" placeholder="Enter marks">
+
+        <label>Science Marks</label>
+        <input type="number" id="science" placeholder="Enter marks">
+
+        <label>English Marks</label>
+        <input type="number" id="english" placeholder="Enter marks">
+
+        <label>Computer Marks</label>
+        <input type="number" id="computer" placeholder="Enter marks">
+
+        <button onclick="calculateResult()">Calculate Result</button>
+
+        <div class="result" id="resultBox" style="display:none;">
+            <p id="studentName"></p>
+            <p id="totalMarks"></p>
+            <p id="percentage"></p>
+            <p id="grade" class="grade"></p>
+            <p id="status"></p>
+        </div>
+
+    </div>
+
+    <script>
+
+        function calculateResult(){
+
+            let name = document.getElementById("name").value;
+
+            let math = parseInt(document.getElementById("math").value);
+            let science = parseInt(document.getElementById("science").value);
+            let english = parseInt(document.getElementById("english").value);
+            let computer = parseInt(document.getElementById("computer").value);
+
+            if(name == "" || isNaN(math) || isNaN(science) || isNaN(english) || isNaN(computer)){
+                alert("Please fill all fields");
+                return;
+            }
+
+            let total = math + science + english + computer;
+            let percentage = (total / 400) * 100;
+
+            let grade = "";
+            let status = "";
+
+            if(percentage >= 90){
+                grade = "A+";
+            }
+            else if(percentage >= 75){
+                grade = "A";
+            }
+            else if(percentage >= 60){
+                grade = "B";
+            }
+            else if(percentage >= 40){
+                grade = "C";
+            }
+            else{
+                grade = "Fail";
+            }
+
+            if(percentage >= 40){
+                status = "Pass";
+            }
+            else{
+                status = "Fail";
+            }
+
+            document.getElementById("resultBox").style.display = "block";
+
+            document.getElementById("studentName").innerHTML =
+                "<strong>Name:</strong> " + name;
+
+            document.getElementById("totalMarks").innerHTML =
+                "<strong>Total Marks:</strong> " + total + " / 400";
+
+            document.getElementById("percentage").innerHTML =
+                "<strong>Percentage:</strong> " + percentage.toFixed(2) + "%";
+
+            document.getElementById("grade").innerHTML =
+                "<strong>Grade:</strong> " + grade;
+
+            document.getElementById("status").innerHTML =
+                "<strong>Status:</strong> " + status;
+        }
+
+    </script>
+
+</body>
+</html>
