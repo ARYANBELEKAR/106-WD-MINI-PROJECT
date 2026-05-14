@@ -1,4 +1,3 @@
-```html id="x7m2qa"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +16,11 @@
 
         body{
             background: linear-gradient(to right, #4facfe, #00f2fe);
-            height:100vh;
+            min-height:100vh;
             display:flex;
             justify-content:center;
             align-items:center;
+            padding:20px;
         }
 
         .container{
@@ -74,6 +74,7 @@
             padding:15px;
             background:#f4f4f4;
             border-radius:10px;
+            display:none;
         }
 
         .result p{
@@ -99,24 +100,20 @@
         <input type="text" id="name" placeholder="Enter student name">
 
         <label>DAS Marks</label>
-        <input type="number" id="das" placeholder="Enter marks"
-               min="0" max="100" oninput="limitMarks(this)">
+        <input type="number" id="das" placeholder="0 - 100" min="0" max="100">
 
         <label>AUTOMATA Marks</label>
-        <input type="number" id="automata" placeholder="Enter marks"
-               min="0" max="100" oninput="limitMarks(this)">
+        <input type="number" id="automata" placeholder="0 - 100" min="0" max="100">
 
         <label>AIML Marks</label>
-        <input type="number" id="aiml" placeholder="Enter marks"
-               min="0" max="100" oninput="limitMarks(this)">
+        <input type="number" id="aiml" placeholder="0 - 100" min="0" max="100">
 
         <label>DS Marks</label>
-        <input type="number" id="ds" placeholder="Enter marks"
-               min="0" max="100" oninput="limitMarks(this)">
+        <input type="number" id="ds" placeholder="0 - 100" min="0" max="100">
 
         <button onclick="calculateResult()">Calculate Result</button>
 
-        <div class="result" id="resultBox" style="display:none;">
+        <div class="result" id="resultBox">
 
             <p id="studentName"></p>
 
@@ -134,45 +131,48 @@
 
     <script>
 
-        // Function to limit marks between 0 and 100
-        function limitMarks(input){
-
-            if(input.value < 0){
-                input.value = 0;
-            }
-
-            if(input.value > 100){
-                input.value = 100;
-                alert("Maximum marks allowed is 100");
-            }
-        }
-
-        // Function to calculate result
         function calculateResult(){
 
-            let name = document.getElementById("name").value;
+            // Get values
+            let name = document.getElementById("name").value.trim();
 
-            let das = parseInt(document.getElementById("das").value);
+            let das = Number(document.getElementById("das").value);
 
-            let automata = parseInt(document.getElementById("automata").value);
+            let automata = Number(document.getElementById("automata").value);
 
-            let aiml = parseInt(document.getElementById("aiml").value);
+            let aiml = Number(document.getElementById("aiml").value);
 
-            let ds = parseInt(document.getElementById("ds").value);
+            let ds = Number(document.getElementById("ds").value);
 
             // Validation
-            if(
-                name == "" ||
-                isNaN(das) ||
-                isNaN(automata) ||
-                isNaN(aiml) ||
-                isNaN(ds)
-            ){
-                alert("Please fill all fields correctly");
+            if(name === ""){
+                alert("Please enter student name");
                 return;
             }
 
-            // Total and Percentage
+            // Check empty fields
+            if(
+                document.getElementById("das").value === "" ||
+                document.getElementById("automata").value === "" ||
+                document.getElementById("aiml").value === "" ||
+                document.getElementById("ds").value === ""
+            ){
+                alert("Please enter all subject marks");
+                return;
+            }
+
+            // Check marks range
+            if(
+                das < 0 || das > 100 ||
+                automata < 0 || automata > 100 ||
+                aiml < 0 || aiml > 100 ||
+                ds < 0 || ds > 100
+            ){
+                alert("Marks must be between 0 and 100");
+                return;
+            }
+
+            // Calculate total and percentage
             let total = das + automata + aiml + ds;
 
             let percentage = (total / 400) * 100;
@@ -181,7 +181,7 @@
 
             let status = "";
 
-            // Grade Logic
+            // Grade calculation
             if(percentage >= 90){
                 grade = "A+";
             }
@@ -198,7 +198,7 @@
                 grade = "Fail";
             }
 
-            // Pass/Fail
+            // Pass / Fail
             if(percentage >= 40){
                 status = "Pass";
             }
@@ -206,7 +206,7 @@
                 status = "Fail";
             }
 
-            // Display Result Box
+            // Display result
             document.getElementById("resultBox").style.display = "block";
 
             document.getElementById("studentName").innerHTML =
@@ -229,4 +229,3 @@
 
 </body>
 </html>
-```
