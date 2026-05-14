@@ -1,11 +1,13 @@
+```html id="x7m2qa"
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Result Management System</title>
 
     <style>
+
         *{
             margin:0;
             padding:0;
@@ -83,6 +85,7 @@
             font-weight:bold;
             color:green;
         }
+
     </style>
 </head>
 
@@ -96,58 +99,89 @@
         <input type="text" id="name" placeholder="Enter student name">
 
         <label>DAS Marks</label>
-        <input type="number" id="das" placeholder="Enter marks" min="0" max="100">
+        <input type="number" id="das" placeholder="Enter marks"
+               min="0" max="100" oninput="limitMarks(this)">
 
         <label>AUTOMATA Marks</label>
-        <input type="number" id="automata" placeholder="Enter marks" min="0" max="100">
+        <input type="number" id="automata" placeholder="Enter marks"
+               min="0" max="100" oninput="limitMarks(this)">
 
         <label>AIML Marks</label>
-        <input type="number" id="aiml" placeholder="Enter marks" min="0" max="100">
+        <input type="number" id="aiml" placeholder="Enter marks"
+               min="0" max="100" oninput="limitMarks(this)">
 
         <label>DS Marks</label>
-        <input type="number" id="ds" placeholder="Enter marks" min="0" max="100">
+        <input type="number" id="ds" placeholder="Enter marks"
+               min="0" max="100" oninput="limitMarks(this)">
 
         <button onclick="calculateResult()">Calculate Result</button>
 
         <div class="result" id="resultBox" style="display:none;">
+
             <p id="studentName"></p>
+
             <p id="totalMarks"></p>
+
             <p id="percentage"></p>
+
             <p id="grade" class="grade"></p>
+
             <p id="status"></p>
+
         </div>
 
     </div>
 
     <script>
 
+        // Function to limit marks between 0 and 100
+        function limitMarks(input){
+
+            if(input.value < 0){
+                input.value = 0;
+            }
+
+            if(input.value > 100){
+                input.value = 100;
+                alert("Maximum marks allowed is 100");
+            }
+        }
+
+        // Function to calculate result
         function calculateResult(){
 
             let name = document.getElementById("name").value;
 
             let das = parseInt(document.getElementById("das").value);
+
             let automata = parseInt(document.getElementById("automata").value);
+
             let aiml = parseInt(document.getElementById("aiml").value);
+
             let ds = parseInt(document.getElementById("ds").value);
 
             // Validation
             if(
                 name == "" ||
-                isNaN(das) || das < 0 || das > 100 ||
-                isNaN(automata) || automata < 0 || automata > 100 ||
-                isNaN(aiml) || aiml < 0 || aiml > 100 ||
-                isNaN(ds) || ds < 0 || ds > 100
+                isNaN(das) ||
+                isNaN(automata) ||
+                isNaN(aiml) ||
+                isNaN(ds)
             ){
-                alert("Marks should be between 0 and 100");
+                alert("Please fill all fields correctly");
                 return;
             }
 
+            // Total and Percentage
             let total = das + automata + aiml + ds;
+
             let percentage = (total / 400) * 100;
 
             let grade = "";
+
             let status = "";
 
+            // Grade Logic
             if(percentage >= 90){
                 grade = "A+";
             }
@@ -164,6 +198,7 @@
                 grade = "Fail";
             }
 
+            // Pass/Fail
             if(percentage >= 40){
                 status = "Pass";
             }
@@ -171,6 +206,7 @@
                 status = "Fail";
             }
 
+            // Display Result Box
             document.getElementById("resultBox").style.display = "block";
 
             document.getElementById("studentName").innerHTML =
@@ -193,5 +229,4 @@
 
 </body>
 </html>
-</body>
-</html>
+```
