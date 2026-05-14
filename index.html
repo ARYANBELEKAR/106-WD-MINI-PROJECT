@@ -95,17 +95,17 @@
         <label>Student Name</label>
         <input type="text" id="name" placeholder="Enter student name">
 
-        <label>Math Marks</label>
-        <input type="number" id="math" placeholder="Enter marks">
+        <label>DAS Marks</label>
+        <input type="number" id="das" placeholder="Enter marks" min="0" max="100">
 
-        <label>Science Marks</label>
-        <input type="number" id="science" placeholder="Enter marks">
+        <label>AUTOMATA Marks</label>
+        <input type="number" id="automata" placeholder="Enter marks" min="0" max="100">
 
-        <label>English Marks</label>
-        <input type="number" id="english" placeholder="Enter marks">
+        <label>AIML Marks</label>
+        <input type="number" id="aiml" placeholder="Enter marks" min="0" max="100">
 
-        <label>Computer Marks</label>
-        <input type="number" id="computer" placeholder="Enter marks">
+        <label>DS Marks</label>
+        <input type="number" id="ds" placeholder="Enter marks" min="0" max="100">
 
         <button onclick="calculateResult()">Calculate Result</button>
 
@@ -125,17 +125,24 @@
 
             let name = document.getElementById("name").value;
 
-            let math = parseInt(document.getElementById("math").value);
-            let science = parseInt(document.getElementById("science").value);
-            let english = parseInt(document.getElementById("english").value);
-            let computer = parseInt(document.getElementById("computer").value);
+            let das = parseInt(document.getElementById("das").value);
+            let automata = parseInt(document.getElementById("automata").value);
+            let aiml = parseInt(document.getElementById("aiml").value);
+            let ds = parseInt(document.getElementById("ds").value);
 
-            if(name == "" || isNaN(math) || isNaN(science) || isNaN(english) || isNaN(computer)){
-                alert("Please fill all fields");
+            // Validation
+            if(
+                name == "" ||
+                isNaN(das) || das < 0 || das > 100 ||
+                isNaN(automata) || automata < 0 || automata > 100 ||
+                isNaN(aiml) || aiml < 0 || aiml > 100 ||
+                isNaN(ds) || ds < 0 || ds > 100
+            ){
+                alert("Marks should be between 0 and 100");
                 return;
             }
 
-            let total = math + science + english + computer;
+            let total = das + automata + aiml + ds;
             let percentage = (total / 400) * 100;
 
             let grade = "";
@@ -184,5 +191,7 @@
 
     </script>
 
+</body>
+</html>
 </body>
 </html>
